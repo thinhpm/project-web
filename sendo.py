@@ -60,7 +60,7 @@ def save_to_db(data):
 
     req = requests.get(url, params=datas)
 
-    print(datas)
+    # print(datas)
 
 def handle(cat_id):
     pages = 25
