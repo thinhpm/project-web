@@ -64,7 +64,7 @@ def save_to_db(data):
         'price': data['price'],
         'percent': data['discount'],
         'name_category': data['cat_id'],
-        'id_web': 2
+        'id_web': 3
     }
 
     req = requests.get(url, params=datas)

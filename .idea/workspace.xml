@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fbf77ae0-e90f-4376-b79e-d8d5e96c280b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/sendo.py" beforeDir="false" afterPath="$PROJECT_DIR$/sendo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shopee.py" beforeDir="false" afterPath="$PROJECT_DIR$/shopee.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tiki.py" beforeDir="false" afterPath="$PROJECT_DIR$/tiki.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -112,12 +111,13 @@
     <session id="1179508867">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
-          <entry key="project.open.time.0" value="1" />
+          <entry key="project.closed" value="5" />
+          <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.14" value="1" />
+          <entry key="project.open.time.19" value="1" />
           <entry key="project.open.time.22" value="1" />
           <entry key="project.open.time.41" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -132,12 +132,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="2951" />
+          <entry key="py" value="2952" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="2951" />
+          <entry key="Python" value="2952" />
         </counts>
       </usages-collector>
     </session>
@@ -162,7 +162,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shopee.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
+            <state relative-caret-position="196">
               <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
@@ -173,11 +173,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tiki.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
+            <state relative-caret-position="394">
+              <caret line="63" column="31" lean-forward="true" selection-start-line="63" selection-start-column="31" selection-end-line="63" selection-end-column="31" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -185,13 +185,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sendo.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="211">
-              <caret line="63" lean-forward="true" selection-start-line="63" selection-end-line="63" />
+              <caret line="65" column="14" lean-forward="true" selection-start-line="65" selection-start-column="14" selection-end-line="65" selection-end-column="14" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
+                <element signature="e#933#1429#0" />
               </folding>
             </state>
           </provider>
@@ -240,9 +241,9 @@
         <option value="$PROJECT_DIR$/core3.py" />
         <option value="$PROJECT_DIR$/core2.py" />
         <option value="$PROJECT_DIR$/core.py" />
-        <option value="$PROJECT_DIR$/tiki.py" />
         <option value="$PROJECT_DIR$/shopee.py" />
         <option value="$PROJECT_DIR$/sendo.py" />
+        <option value="$PROJECT_DIR$/tiki.py" />
       </list>
     </option>
   </component>
@@ -258,6 +259,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -269,11 +271,10 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../core-website" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -288,7 +289,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.tiki">
+  <component name="RunManager" selected="Python.shopee">
     <configuration name="core" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="project-web" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -403,9 +404,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.shopee" />
         <item itemvalue="Python.tiki" />
         <item itemvalue="Python.sendo" />
-        <item itemvalue="Python.shopee" />
         <item itemvalue="Python.core" />
         <item itemvalue="Python.core2" />
       </list>
@@ -433,13 +434,13 @@
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.28308025" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.28308025" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.49947312" visible="true" weight="0.28633407" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49947312" weight="0.28633407" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50052685" side_tool="true" weight="0.3253796" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.329718" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -480,19 +481,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tiki.py">
+    <entry file="file://$PROJECT_DIR$/sendo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
+        <state relative-caret-position="211">
+          <caret line="65" column="14" lean-forward="true" selection-start-line="65" selection-start-column="14" selection-end-line="65" selection-end-column="14" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#933#1429#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/shopee.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
+        <state relative-caret-position="196">
           <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
@@ -502,10 +504,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sendo.py">
+    <entry file="file://$PROJECT_DIR$/tiki.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="63" lean-forward="true" selection-start-line="63" selection-end-line="63" />
+        <state relative-caret-position="394">
+          <caret line="63" column="31" lean-forward="true" selection-start-line="63" selection-start-column="31" selection-end-line="63" selection-end-column="31" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
