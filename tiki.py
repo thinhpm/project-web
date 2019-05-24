@@ -5,6 +5,7 @@ import datetime
 from bs4 import BeautifulSoup
 import lxml
 import time
+from requests.exceptions import ConnectionError
 
 
 def get_category_id():
@@ -102,13 +103,15 @@ if __name__=='__main__':
 
     while True:
         for item in category:
-            print(category.index(item))
-            time_cat = datetime.datetime.now()
+            try:
+                print(category.index(item))
+                time_cat = datetime.datetime.now()
 
-            handle(item)
+                handle(item)
 
-            print(datetime.datetime.now() - time_cat)
-
+                print(datetime.datetime.now() - time_cat)
+            except ConnectionError as e:
+                print ("Connect error!")
         print(datetime.datetime.now() - first_time)
 
         time.sleep(2000)
