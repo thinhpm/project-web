@@ -62,6 +62,7 @@ def save_to_db(data):
 
     # print(datas)
 
+
 def handle(cat_id):
     pages = 25
     percent = 60
@@ -74,17 +75,19 @@ def handle(cat_id):
               str(i) + "&s=60&sortType=price_asc"
 
         req = requests.get(url, headers=data_header)
+        try:
+            contents = json.loads(req.content)
+            contents = contents['result']['data']
 
-        contents = json.loads(req.content)
-        contents = contents['result']['data']
+            for item in contents:
+                discount = item['promotion_percent']
+                discount = str(discount).replace('%', '')
 
-        for item in contents:
-            discount = item['promotion_percent']
-            discount = str(discount).replace('%', '')
-
-            if int(discount) >= percent:
-                info = get_info(item, discount, cat_id)
-                save_to_db(info)
+                if int(discount) >= percent:
+                    info = get_info(item, discount, cat_id)
+                    save_to_db(info)
+        except ValueError:
+            print("decode error!")
 
 
 if __name__=='__main__':
