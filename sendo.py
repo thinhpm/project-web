@@ -91,10 +91,10 @@ def handle(cat_id):
 
 
 if __name__=='__main__':
-    first_time = datetime.datetime.now()
     category = get_category_id()
 
     while True:
+        first_time = datetime.datetime.now()
         for item in category:
             try:
                 print(category.index(item))
@@ -103,8 +103,9 @@ if __name__=='__main__':
                 handle(item)
 
                 print(datetime.datetime.now() - time_cat)
-            except ConnectionError as e:
+            except (ValueError, ConnectionError) as e:
                 print ("Connect error!")
+
         print(datetime.datetime.now() - first_time)
 
         time.sleep(2000)
