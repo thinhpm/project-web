@@ -137,7 +137,8 @@ def main(string_link):
     stt = 0
 
     proxies = {
-        'http': 'http://77.247.89.253:8080'
+        'http': 'http://36.89.190.131:36588',
+        'https': 'http://36.89.190.131:36588'
     }
 
     while True:
@@ -155,10 +156,12 @@ def main(string_link):
             req = requests.get(url, proxies=proxies)
             need_new_proxy = handle(req, cat_id)
             print(need_new_proxy)
-            # if need_new_proxy is True:
-            #     proxies = {
-            #         'http': 'http://36.90.76.66:80'
-            #     }
+            if need_new_proxy is True:
+                proxy = getProxy()
+                proxies = {
+                    'http': 'http://' + proxy,
+                    'https': 'http://' + proxy
+                }
 
         stt = stt + 1
 
