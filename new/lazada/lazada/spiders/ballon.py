@@ -139,20 +139,20 @@ class TestDev(Spider):
 
     def start_requests(self):
         arr_link = self.string_link.split(",")
-        proxy = "77.247.89.253:8080"
+        proxy = "36.89.190.131:36588"
         stt = 0
 
         while True:
             link = arr_link[stt]
 
             for i in range(25):
-                print(self.need_new_proxy)
+
                 if self.need_new_proxy is True:
                     print("Get new proxy...")
-                    proxy = getProxy()
-                    print(proxy)
+                    # proxy = getProxy()
+                    # print(proxy)
                     self.need_new_proxy = False
-                    stt = 0
+                    # stt = 0
 
                 index = link.rfind("/")
                 nameCategory = link[index + 1:]
@@ -163,7 +163,7 @@ class TestDev(Spider):
                     url = 'https://' + url
 
                 request = Request(url=url, callback=self.parse)
-                request.meta["proxy"] = "http://" + proxy
+                # request.meta["proxy"] = "http://" + proxy
 
                 yield request
             stt = stt + 1
@@ -224,5 +224,5 @@ class TestDev(Spider):
         time.sleep(6)
         return
 
-proxy = getProxy()
-print(proxy)
+# proxy = getProxy()
+# print(proxy)
