@@ -5,6 +5,7 @@ import datetime
 import time
 from requests.exceptions import ConnectionError
 
+
 def get_category_id():
     results = []
     url = "https://shopee.vn/api/v1/category_list/"
@@ -12,6 +13,8 @@ def get_category_id():
     req = requests.get(url)
 
     category = json.loads(req.content)
+
+    results.append("-2")
 
     for item in category:
         results.append(item['main']['catid'])
@@ -70,6 +73,7 @@ def save_to_db(data):
 
     # print(datas)
 
+
 def handle(cat_id):
     pages = 10000
     percent = 80
@@ -77,41 +81,59 @@ def handle(cat_id):
         'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36"
     }
 
+    # for i in range(50, pages, 50):
     for i in range(50, pages, 50):
-        url = "https://shopee.vn/api/v2/search_items/?by=price&limit=50&match_id=" + str(cat_id) + "&newest=" + str(i) +\
-              "&order=asc&page_type=search&rating_filter=1"
+        # url = "https://shopee.vn/api/v2/search_items/?by=price&limit=50&match_id=" + str(cat_id) + "&newest=" + str(i) +\
+        #       "&order=asc&page_type=search&rating_filter=1"
 
-        # url = "https://shopee.vn/api/v2/search_items/?by=pop&limit=50&match_id=" + str(cat_id) + "&newest=" + str(i) + "&order=asc&page_type=search"
+        url = "https://shopee.vn/api/v2/recommend_items/get?catid=" + str(cat_id) + "&order=asc&limit=50&offset=" + str(i) +\
+              "&recommend_type=6"
+
         req = requests.get(url, headers=data_header)
 
         contents = json.loads(req.content)
-        try:
-            for item in contents['items']:
-                discount = item['discount']
-                discount = str(discount).replace('%', '')
+        # try:
 
-                if (discount != 'None' and int(discount) >= percent):
-                    info = get_info(item, discount, cat_id)
-                    save_to_db(info)
-        except TypeError:
-            print(i)
+        contents = contents['data']
+
+        if 'items' not in contents:
+            continue
+
+        if type(contents['items']) is not list:
+            continue
+
+        if len(contents['items']) == 0:
             return
+
+        for item in contents['items']:
+            discount = item['discount']
+
+            discount = str(discount).replace('%', '')
+
+            if (discount != 'None' and int(discount) >= percent):
+                info = get_info(item, discount, cat_id)
+                print(info)
+                save_to_db(info)
+        # except TypeError:
+        #     print(i)
+        #     return
 
 
 if __name__=='__main__':
     first_time = datetime.datetime.now()
     category = get_category_id()
+    # category = ['-2']
 
     while True:
         for item in category:
-            try:
-                print(category.index(item))
-                time_cat = datetime.datetime.now()
-                handle(item)
+            # try:
+            print(category.index(item))
+            time_cat = datetime.datetime.now()
+            handle(item)
 
-                print(datetime.datetime.now() - time_cat)
-            except (ValueError, ConnectionError) as e:
-                print ("Connect error!")
+            print(datetime.datetime.now() - time_cat)
+            # except (ValueError, ConnectionError) as e:
+            #     print ("Connect error!")
 
         print(datetime.datetime.now() - first_time)
         time.sleep(2000)

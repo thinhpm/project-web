@@ -85,7 +85,9 @@ def handle(cat_id):
 
                 if int(discount) >= percent:
                     info = get_info(item, discount, cat_id)
+                    print(info)
                     save_to_db(info)
+                    return
         except ValueError:
             print("decode error!")
 

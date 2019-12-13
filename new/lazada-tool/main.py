@@ -131,19 +131,37 @@ def getNameProduct(link):
     return name
 
 
+def generate_cookie(string_cookie):
+    if string_cookie == '':
+        return {}
+
+    string_cookie = string_cookie.replace(" ", "")
+    arr = string_cookie.split(";")
+    result = {}
+
+    for i in range(len(arr)):
+        key, value = arr[i].split("=")
+
+        result[key] = value
+
+    return result
+
+
 def main(string_link):
     need_new_proxy = False
     arr_link = string_link.split(",")
     stt = 0
-
+    cookie = "client_type=desktop; lzd_cid=6452f4c1-f8b6-4aa7-9760-c4010c2a8048; t_uid=6452f4c1-f8b6-4aa7-9760-c4010c2a8048; hng=VN|en|VND|704; userLanguageML=en; t_fv=1574331551287; cna=nVVdFphZL20CAYu0w1l2JPTi; _bl_uid=w6k7v39n83nkLRcmIytLa637yXvC; cto_lwid=a0fc21db-7f3c-4bdb-9ddd-e3423b65d248; cto_idcpy=ebe1ee59-95b1-4de7-87d2-63976b3cec65; Hm_lvt_7cd4710f721b473263eed1f0840391b4=1574386982,1574674477; _m_h5_tk=93e3674f1b1e599f82e4f845d058426b_1575025678628; _m_h5_tk_enc=a6b5b4c3007b3d39adff7c147ccd70ef; _tb_token_=7edebe536a75a; t_sid=JaOpOHNiPLhdDuNKD5SL6ihaS2RH7TuV; utm_channel=NA; _ga=GA1.2.1597665392.1574331570; _gid=GA1.2.182739780.1575015610; _gat_UA-30172376-1=1; _fbp=fb.1.1574331570385.1181107822; l=dBSiKJ67qW39jerzBOCwdZZzUC_OsIO4YuWbadjMi_5Ik1L6DkQOkn3-lep6cOWcGVLB40FhhAJToEM8-zvfi9vJUJ2emVMDBef..; isg=BEJCPmA7q_38O7eX2GvUKwEXkEGuE0QioXxEqIxbY7Vg3-BZdKWaPLodjwMGlL7F"
     proxies = {
         'http': 'http://36.89.190.131:36588',
         'https': 'http://36.89.190.131:36588'
     }
 
+
+
     while True:
         link = arr_link[stt]
-
+        print(link)
         for i in range(25):
             index = link.rfind("/")
             nameCategory = link[index + 1:]
@@ -153,19 +171,26 @@ def main(string_link):
             if ('http' not in link):
                 url = 'https://' + url
 
-            req = requests.get(url, proxies=proxies)
-            need_new_proxy = handle(req, cat_id)
-            print(need_new_proxy)
-            if need_new_proxy is True:
-                proxy = getProxy()
-                proxies = {
-                    'http': 'http://' + proxy,
-                    'https': 'http://' + proxy
-                }
+            # req = requests.get(url, proxies=proxies)
+            req = requests.get(url, cookies=generate_cookie(cookie))
+            result = handle(req, cat_id)
+
+            if result is False:
+                break
+
+            time.sleep(1)
+
+            # if need_new_proxy is True:
+            #     proxy = getProxy()
+            #     proxies = {
+            #         'http': 'http://' + proxy,
+            #         'https': 'http://' + proxy
+            #     }
+            # time.sleep(1)
 
         stt = stt + 1
 
-        if stt > len(arr_link):
+        if stt >= len(arr_link):
             stt = 0
 
 
@@ -182,7 +207,10 @@ def handle(response, cat_id):
     arr1 = re.findall(regex, string2)
 
     print(len(arr1))
+    count_none = 0
+
     if len(arr1) == 0:
+        return False
 
         content2 = BeautifulSoup(content, 'lxml')
         classes = content2.find(id="nc-verify-form")
@@ -191,10 +219,12 @@ def handle(response, cat_id):
 
     for item in arr1:
         if ('discount' in item):
-
             textCheck = item[:-1]
             index = textCheck.rfind('"')
             disCount = textCheck[index + 1:].replace('-', '').replace('%', '')
+
+            if (disCount == 0):
+                count_none = count_none + 1
 
             if (int(disCount) > PERCENTDISCOUNT):
                 index = item.find('"')
@@ -220,7 +250,10 @@ def handle(response, cat_id):
                 print(data)
                 save_to_db(data)
 
-    return False
+    if count_none >= len(arr1):
+        return False
+
+    return True
 
 
 if __name__ == '__main__':
