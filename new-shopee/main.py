@@ -20,7 +20,13 @@ def get_category_id():
 
         results.append(shop_id)
 
-    return results
+    temp = []
+    print(len(results))
+    for item in results:
+        if item not in temp:
+            temp.append(item)
+
+    return temp
 
 
 def get_info(item, discount, cat_id):
@@ -116,7 +122,7 @@ def handle(cat_id):
 if __name__=='__main__':
     first_time = datetime.datetime.now()
     category = get_category_id()
-
+    print(len(category))
     while True:
         for item in category:
             try:
@@ -130,4 +136,4 @@ if __name__=='__main__':
 
         # print(datetime.datetime.now() - first_time)
 
-    #     # time.sleep(2000)
+        time.sleep(2000)
