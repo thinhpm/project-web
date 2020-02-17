@@ -5,10 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/project-web.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/project-web.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/new/lazada-tool/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/new/lazada-tool/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/new/lazada-tool/save-data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/now/save-data.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/old/sendo.py" beforeDir="false" afterPath="$PROJECT_DIR$/old/sendo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/old/shopee.py" beforeDir="false" afterPath="$PROJECT_DIR$/old/shopee.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lazada-tool/.idea/workspace.xml" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,7 +29,7 @@
   <component name="ProjectId" id="1TvBd6vJ5V6Bslzi5G7B8dtUM90" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../facebook-reup-tool/main.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../tiki/hotdeal.py" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -47,7 +44,28 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.get_shop_laz">
+  <component name="RunManager" selected="Python.checkprice">
+    <configuration name="checkprice" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="project-web" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/checkprice.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="get_shop_laz" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="project-web" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -61,48 +79,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/now/get_shop_laz.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="project-web" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../reup-youtube-linux" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../reup-youtube-linux/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="rename" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="project-web" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../reup-youtube-linux" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../reup-youtube-linux/rename.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -132,7 +108,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="shopee" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="tiki (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="project-web" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tiki.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="tiki" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="project-web" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -144,7 +141,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/old/shopee.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/old/tiki.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -154,19 +151,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.shopee" />
       <item itemvalue="Python.selenium-test" />
-      <item itemvalue="Python.main (1)" />
-      <item itemvalue="Python.rename" />
       <item itemvalue="Python.get_shop_laz" />
+      <item itemvalue="Python.tiki" />
+      <item itemvalue="Python.tiki (1)" />
+      <item itemvalue="Python.checkprice" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.checkprice" />
+        <item itemvalue="Python.tiki (1)" />
+        <item itemvalue="Python.tiki" />
         <item itemvalue="Python.get_shop_laz" />
         <item itemvalue="Python.selenium-test" />
-        <item itemvalue="Python.shopee" />
-        <item itemvalue="Python.main (1)" />
-        <item itemvalue="Python.rename" />
       </list>
     </recent_temporary>
   </component>
