@@ -9,6 +9,8 @@ from requests.exceptions import ConnectionError
 import logging
 from queue import Queue
 from multi_threading import MyWorker
+from checkprice import CheckPrice
+
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -89,6 +91,7 @@ def handle(cat_id):
 
         id = temp2.replace("c", "")
         url = 'https://tiki.vn/api/v2/landingpage/products?category_id=' + str(id) + '&limit=48&sort=discount_percent,desc&page=' + str(i)
+
         req = requests.get(url, headers=data_header)
         data = json.loads(req.content)
         items = data['data']
@@ -100,8 +103,18 @@ def handle(cat_id):
             discount = item['discount_rate']
 
             if int(discount) >= percent:
+                price = item['price']
+                link_product = 'https://tiki.vn/' + item['url_key'] + '.html'
+                seller_product_id = item['seller_product_id']
                 info = get_info(item, discount, cat_id)
+
+                check_price = CheckPrice()
+                check_error_item = check_price.check_item_is_error(link_product + "?spid=" + str(seller_product_id), price)
                 # print(info)
+                if check_error_item:
+                    print("------------")
+                    print(info)
+                    print("------------")
                 # save_to_db(info)
 
 
@@ -134,4 +147,6 @@ if __name__ == '__main__':
     #         print ("Connect error!")
 
     logging.info('Took %s', time.time() - ts)
-
+# check_price = CheckPrice()
+# check = check_price.check_item_is_error("https://tiki.vn/smart-tivi-samsung-55-inch-4k-uhd-ua55nu7090kxxv-hang-chinh-hang-p3665301.html", 123)
+# print(check)

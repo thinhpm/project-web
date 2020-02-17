@@ -41,15 +41,48 @@ class CheckPrice:
 
     def get_data_item_from_ssg(self, url_item):
         url = self.get_url_from_ssg(url_item)
-        root = self.my_requests('GET', url, None, 'html')
-        string_script = root.xpath("/html/head/script[5]")[0].text
-        data = re.findall(r'"data":\[\[(.*?)]],', string_script)[0]
+
+        string_script = self.my_requests('GET', url, None, 'text')
+        # string_script = root.xpath("/html/head/script[5]")[0].text
+
+        data = re.findall(r'"data":\[\[(.*?)]],', str(string_script))
+
+        if len(data) == 0:
+            return []
+
+        data = data[0]
+
         data = '[[' + data + ']]'
         data = json.loads(data)
         length_data = len(data)
 
-        print(data[length_data - 1][1])
-        print(data[length_data - 2][1])
+        # arr = [data[length_data - 1][1], data[length_data - 2][1], data[length_data - 3][1], data[length_data - 4][1]]
+        arr = []
 
-check_price = CheckPrice()
-check_price.get_data_item_from_ssg("https://tiki.vn/smart-tivi-samsung-55-inch-4k-uhd-ua55nu7090kxxv-hang-chinh-hang-p3665301.html")
+        for i in range(len(data)):
+            arr.append(data[i][1])
+
+        return arr
+
+    def check_item_is_error(self, url_item, price_current):
+        arr_price = self.get_data_item_from_ssg(url_item)
+
+        if len(arr_price) == 0:
+            return False
+
+        time_repeat = arr_price.count(price_current)
+
+        if time_repeat > 1:
+            return False
+
+        min_price = min(arr_price)
+
+        if price_current > min_price:
+            return False
+
+        max_price = max(arr_price)
+
+        if max_price < price_current + 100000:
+            return False
+
+        return True
