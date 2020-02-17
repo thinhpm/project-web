@@ -2,6 +2,7 @@ import requests
 import lxml
 from lxml import html
 import json
+import re
 
 
 class CheckPrice:
@@ -41,9 +42,14 @@ class CheckPrice:
     def get_data_item_from_ssg(self, url_item):
         url = self.get_url_from_ssg(url_item)
         root = self.my_requests('GET', url, None, 'html')
-        script = root.xpath("/html/head/script[5]")[0].text
-        print(script)
+        string_script = root.xpath("/html/head/script[5]")[0].text
+        data = re.findall(r'"data":\[\[(.*?)]],', string_script)[0]
+        data = '[[' + data + ']]'
+        data = json.loads(data)
+        length_data = len(data)
 
+        print(data[length_data - 1][1])
+        print(data[length_data - 2][1])
 
 check_price = CheckPrice()
 check_price.get_data_item_from_ssg("https://tiki.vn/smart-tivi-samsung-55-inch-4k-uhd-ua55nu7090kxxv-hang-chinh-hang-p3665301.html")
