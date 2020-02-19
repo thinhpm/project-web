@@ -1,3 +1,5 @@
+from json import JSONDecodeError
+
 import requests
 import lxml
 from lxml import html
@@ -24,7 +26,10 @@ class CheckPrice:
             req = requests.post(url, data=params, headers=self.custom_headers)
 
         if type_response == 'json':
-            return json.loads(req.content)
+            try:
+                return json.loads(req.content)
+            except JSONDecodeError:
+                return {}
 
         if type_response == 'html':
             return html.fromstring(req.content)
@@ -64,8 +69,26 @@ class CheckPrice:
 
         return arr
 
+    def get_data_item_from_bee_cost(self, string_item):
+        url_item = "https://apiv2.beecost.com/ecom/product/history?product_base_id=" + string_item
+        data = self.my_requests('GET', url_item, {}, 'json')
+        arr = []
+
+        if 'data' not in data or data['data'] is None:
+            return []
+
+        if 'item_history' not in data['data']:
+            return []
+
+        data = data['data']['item_history']['price']
+
+        for item in data:
+            arr.append(int(item))
+
+        return arr
+
     def check_item_is_error(self, url_item, price_current):
-        arr_price = self.get_data_item_from_ssg(url_item)
+        arr_price = self.get_data_item_from_bee_cost(url_item)
 
         if len(arr_price) == 0:
             return False
@@ -85,4 +108,19 @@ class CheckPrice:
         if max_price < price_current + 100000:
             return False
 
+        if int(price_current / max_price)*100 > 20:
+            return False
+
+        if price_current in arr_price:
+            arr_price.remove(price_current)
+
+        arr_price = sorted(arr_price)
+
+        if arr_price[0] - price_current < 200000:
+            return False
+
         return True
+
+# checkprice = CheckPrice()
+# data = checkprice.get_data_item_from_bee_cost('https://apiv2.beecost.com/ecom/product/history?product_base_id=3__16676083__25273069')
+# print (data)
