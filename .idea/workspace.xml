@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fbf77ae0-e90f-4376-b79e-d8d5e96c280b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/project-web.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/project-web.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/checkprice.py" beforeDir="false" afterPath="$PROJECT_DIR$/checkprice.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tiki.py" beforeDir="false" afterPath="$PROJECT_DIR$/tiki.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,7 +27,7 @@
   <component name="ProjectId" id="1TvBd6vJ5V6Bslzi5G7B8dtUM90" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$USER_HOME$/sharedata/project/raw1-dev" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../tiki/hotdeal.py" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -88,7 +85,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="selenium-test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="hotdeal" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="project-web" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -96,11 +93,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/new/lazada-tool" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../tiki" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/new/lazada-tool/selenium-test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../tiki/hotdeal.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -152,19 +149,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.selenium-test" />
       <item itemvalue="Python.get_shop_laz" />
       <item itemvalue="Python.tiki" />
       <item itemvalue="Python.tiki (1)" />
       <item itemvalue="Python.checkprice" />
+      <item itemvalue="Python.hotdeal" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.tiki (1)" />
+        <item itemvalue="Python.hotdeal" />
         <item itemvalue="Python.checkprice" />
         <item itemvalue="Python.tiki" />
         <item itemvalue="Python.get_shop_laz" />
-        <item itemvalue="Python.selenium-test" />
       </list>
     </recent_temporary>
   </component>

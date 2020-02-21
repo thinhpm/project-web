@@ -79,8 +79,6 @@ def save_to_db(data, check_error_item):
 
     req = requests.get(url, params=datas)
 
-    print(req.content)
-
 
 def get_total_page(url, data_header):
     req = requests.get(url, headers=data_header)
@@ -120,8 +118,8 @@ def handle_detail(data):
                 print("------------")
                 print(info)
                 print("------------")
-                save_to_db(info, check_error_item)
-            # save_to_db(info)
+
+            save_to_db(info, check_error_item)
 
 
 def handle(cat_id):
@@ -141,7 +139,7 @@ def handle(cat_id):
     total_page = int(total_page/limit)
 
     list_handel = []
-    print(total_page)
+
     for i in range(total_page):
         if i >= limit_page:
             break
