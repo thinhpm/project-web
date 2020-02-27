@@ -61,7 +61,7 @@ def get_info(item, discount, cat_id):
 
 
 def save_to_db(data, check_error_item):
-    # url = "http://mgghot.com/wp-admin/admin-ajax.php?action=api_v1_lazada_set_db"
+    url = "http://mgghot.com/wp-admin/admin-ajax.php?action=api_v1_lazada_set_db"
     url = "http://localhost/analysis-center/wp-admin/admin-ajax.php?action=api_v1_lazada_set_db"
 
     datas = {
@@ -94,6 +94,7 @@ def handle_detail(data):
     percent = 80
     req = requests.get(url, headers=data_header)
     data = json.loads(req.content)
+
     items = data['data']
 
     if len(items) == 0:
@@ -119,7 +120,7 @@ def handle_detail(data):
                 print(info)
                 print("------------")
 
-            save_to_db(info, check_error_item)
+            # save_to_db(info, check_error_item)
 
 
 def handle(cat_id):
@@ -177,7 +178,6 @@ if __name__ == '__main__':
 
     for item in category:
         handle(item)
-
 
     logging.info('Took %s', time.time() - ts)
 # check_price = CheckPrice()
