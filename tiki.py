@@ -95,6 +95,9 @@ def handle_detail(data):
     req = requests.get(url, headers=data_header)
     data = json.loads(req.content)
 
+    if 'data' not in data:
+        return
+
     items = data['data']
 
     if len(items) == 0:
@@ -172,14 +175,17 @@ def multi_handle(total_worker, func_run, list_handle):
 
 
 if __name__ == '__main__':
-    first_time = datetime.datetime.now()
-    category = get_category_id()
-    ts = time.time()
+    while True:
+        first_time = datetime.datetime.now()
+        category = get_category_id()
+        ts = time.time()
 
-    for item in category:
-        handle(item)
+        for item in category:
+            handle(item)
 
-    logging.info('Took %s', time.time() - ts)
+        logging.info('Took %s', time.time() - ts)
+
+        time.sleep(500)
 # check_price = CheckPrice()
 # check = check_price.check_item_is_error("https://tiki.vn/smart-tivi-samsung-55-inch-4k-uhd-ua55nu7090kxxv-hang-chinh-hang-p3665301.html", 123)
 # print(check)
