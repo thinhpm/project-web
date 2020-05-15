@@ -11,8 +11,7 @@ from queue import Queue
 from multi_threading import MyWorker
 from checkprice import CheckPrice
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.DEBUG, filename="log.log", format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 
 data_header = {
@@ -123,11 +122,9 @@ def handle_detail(data):
             check_error_item = check_price.check_item_is_error(url_check, price)
 
             if check_error_item:
-                print("------------")
-                print(info)
-                print("------------")
+               logging.info(info)
 
-            # save_to_db(info, check_error_item)
+            save_to_db(info, check_error_item)
 
 
 def handle(cat_id):
@@ -183,18 +180,9 @@ def multi_handle(total_worker, func_run, list_handle):
 
 
 if __name__ == '__main__':
-    while True:
-        first_time = datetime.datetime.now()
-        category = get_category_id()
-        ts = time.time()
+    first_time = datetime.datetime.now()
+    category = get_category_id()
+    ts = time.time()
 
-        for item in category:
-            handle(item)
-
-        logging.info('Took %s', time.time() - ts)
-
-        time.sleep(500)
-
-# check_price = CheckPrice()
-# check = check_price.check_item_is_error("https://tiki.vn/smart-tivi-samsung-55-inch-4k-uhd-ua55nu7090kxxv-hang-chinh-hang-p3665301.html", 123)
-# print(check)
+    for item in category:
+        handle(item)
