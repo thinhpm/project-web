@@ -82,6 +82,10 @@ def save_to_db(data, check_error_item):
 def get_total_page(url, data_header):
     req = requests.get(url, headers=data_header)
     data = json.loads(req.content)
+
+    if 'paging' not in data:
+        return 0
+
     pages = data['paging']
 
     return pages['total']
@@ -137,6 +141,10 @@ def handle(cat_id):
             id) + '&limit=' + str(limit) + '&sort=discount_percent,desc&page=1'
 
     total_page = get_total_page(url, data_header)
+
+    if total_page == 0:
+        return
+
     total_page = int(total_page/limit)
 
     list_handel = []
@@ -178,5 +186,3 @@ if __name__ == '__main__':
 
     for item in category:
         handle(item)
-
-    logging.info('Took %s', time.time() - ts)
