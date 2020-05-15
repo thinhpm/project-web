@@ -83,6 +83,10 @@ def save_to_db(data, check_error_item):
 def get_total_page(url, data_header):
     req = requests.get(url, headers=data_header)
     data = json.loads(req.content)
+
+    if 'paging' not in data:
+        return 0
+
     pages = data['paging']
 
     return pages['total']
@@ -140,6 +144,10 @@ def handle(cat_id):
             id) + '&limit=' + str(limit) + '&sort=discount_percent,desc&page=1'
 
     total_page = get_total_page(url, data_header)
+
+    if total_page == 0:
+        return
+
     total_page = int(total_page/limit)
 
     list_handel = []
@@ -186,6 +194,7 @@ if __name__ == '__main__':
         logging.info('Took %s', time.time() - ts)
 
         time.sleep(500)
+
 # check_price = CheckPrice()
 # check = check_price.check_item_is_error("https://tiki.vn/smart-tivi-samsung-55-inch-4k-uhd-ua55nu7090kxxv-hang-chinh-hang-p3665301.html", 123)
 # print(check)
