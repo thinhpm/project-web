@@ -17,8 +17,8 @@ from aiosocksy.connector import ProxyConnector, ProxyClientRequest
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
-loop = asyncio.get_event_loop()
 
+loop = asyncio.get_event_loop()
 
 data_header = {
     'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36"
@@ -197,7 +197,7 @@ async def fetch(method="POST", url="", data=(), session=None, proxy="", proxy_au
 
 
 async def async_request_aio_http(arr_handle):
-    timeout = aiohttp.ClientTimeout(total=10)
+    timeout = aiohttp.ClientTimeout(total=30)
     auth = Socks5Auth(login='', password='')
     connector = ProxyConnector(verify_ssl=False)
 
@@ -242,6 +242,8 @@ def get_list_total_page(list_cat_id):
     list_url = []
     result = {}
 
+    loop = asyncio.new_event_loop()
+
     for cat_id in list_cat_id:
         url = 'https://tiki.vn/api/v2/landingpage/products?category_id=' + str(cat_id) + '&limit=' + str(limit) + '&sort=discount_percent,desc&page=1'
         list_url.append({
@@ -258,25 +260,48 @@ def get_list_total_page(list_cat_id):
 
         result[str(cat_parent_id)] = total_paging
 
+    loop.close()
+
+    return result
+
+def read_data_file(file_name):
+    result = []
+    f = open(file_name, "r")
+    lines = f.readlines()
+
+    for line in lines:
+        if len(line) == 0:
+            continue
+
+        cat_id, count = line.replace("\n", "").split(",")
+        result.append({
+            'cat_id': cat_id,
+            'count': count
+        })
+
     return result
 
 
-def get_all_url(list_cat_id, list_total_page):
-    limit = 48
+def get_all_url():
+    limit = 300
     results = []
-    result = {}
-    max_page = 200
+    list_cat_id = read_data_file("list-category-tiki.txt")
 
-    for cat_id in list_cat_id:
-        paging = list_total_page[cat_id]
-        total_page = int(paging / limit)
+    for item in list_cat_id:
+        cat_id = item['cat_id']
+        total_item = int(item['count'])
+
+        if total_item > 10000:
+            total_item = 10000
+
+        total_page = round(total_item / limit)
+
+        if total_page < float(total_item / limit):
+            total_page += 1
 
         for i in range(total_page):
-            if i > max_page:
-                break
-
             url = "https://tiki.vn/api/v2/landingpage/products?category_id=" + str(cat_id) + \
-                  "&limit=48&sort=discount_percent,desc&page=" + str(i+1)
+                  "&limit=" + str(limit) + "&sort=discount_percent,desc&page=" + str(i+1)
 
             result = {
                 'url': url
@@ -287,8 +312,60 @@ def get_all_url(list_cat_id, list_total_page):
     return results
 
 
-def handle_data(datas):
+def get_sub_cat(cat_id):
+    url = "https://tiki.vn/api/v2/landingpage/products?category_id=" + str(cat_id) + \
+          "&limit=1&sort=discount_percent,desc&page=1"
+    data = requests.get(url, headers=data_header)
+    data = json.loads(data.text)
+
+    if 'aggregations' not in data:
+        return []
+
+    list_sub_cat = data['aggregations']['category']['values']
+
+    return list_sub_cat
+
+
+def get_all_urls(list_cat_id):
+    limit = 48
     results = []
+    result = {}
+    max_page = 200
+    item_url = {'id': 0, "total_item": 0}
+    arr_list_id = []
+
+    for cat_id in list_cat_id:
+        url = "https://tiki.vn/api/v2/landingpage/products?category_id=" + str(cat_id) + \
+              "&limit=1&sort=discount_percent,desc&page=1"
+        print(url)
+        data = requests.get(url, headers=data_header)
+        data = json.loads(data.text)
+
+        list_sub_cat = data['aggregations']['category']['values']
+
+        # results += list_sub_cat
+
+        for item_sub_cat in list_sub_cat:
+            id_sub_cat = item_sub_cat['id']
+
+            arr = get_sub_cat(id_sub_cat)
+
+            for item in arr:
+                id_sub_cat = item['id']
+
+                arr2 = get_sub_cat(id_sub_cat)
+
+                for item2 in arr2:
+                    print(len(results))
+
+                    id_sub_cat = item2['id']
+
+                    results += get_sub_cat(id_sub_cat)
+
+    return results
+
+
+def handle_data(datas):
     result = []
     arr_price = {}
 
@@ -305,7 +382,10 @@ def handle_data(datas):
         if 'aggregations' not in data:
             continue
 
-        cat_id = data['aggregations']['category']['values'][0]['parent_id']
+        if len(data['aggregations']['category']['values']) == 0:
+            cat_id = data['filters'][3]['values'][0]['query_value']
+        else:
+            cat_id = data['aggregations']['category']['values'][0]['parent_id']
 
         if len(items) == 0:
             continue
@@ -317,7 +397,8 @@ def handle_data(datas):
 
                 id_product = item['id']
                 price = item['price']
-
+                if 'seller_product_id' not in item:
+                    continue
                 seller_product_id = item['seller_product_id']
                 info = get_info(item, discount, cat_id)
 
@@ -325,25 +406,17 @@ def handle_data(datas):
 
                 result.append({
                     'url': "https://apiv2.beecost.com/ecom/product/history?product_base_id=" + url_check,
-                    'data_info': info
+                    'data_info': info,
+                    'product_id': id_product
                 })
 
                 arr_price[str(id_product)] = price
 
-    return [results, arr_price]
+    return [result, arr_price]
 
 
 def check_item_is_error(data, price_current):
-    data = json.loads(data)
     arr = []
-
-    if 'data' not in data or data['data'] is None:
-        arr = []
-
-    if 'item_history' not in data['data']:
-        arr = []
-
-    data = data['data']['item_history']['price']
 
     for item in data:
         arr.append(int(item))
@@ -385,44 +458,90 @@ def check_item_is_error(data, price_current):
     return True
 
 
+def handle_data_check_error_price(item, arr_list_price_item, arr_list_data_with_product_id):
+    item = json.loads(item)
+
+    data = item['data']
+
+    if data is None:
+        return
+
+    product_id = data['item_history']['product_base_id']
+    product_id = product_id.split("__")[1]
+    price = arr_list_price_item[product_id]
+
+    list_price = data['item_history']['price']
+
+    if check_item_is_error(list_price, price):
+        print(arr_list_data_with_product_id[product_id])
+
+
+def sort_list_item_with_product_id(list_data):
+    resutl = {}
+
+    for item in list_data:
+        resutl[str(item['product_id'])] = item['data_info']
+
+    return resutl
+
+
+def write_file(file_name, data):
+    f = open(file_name, "a+")
+    for item in data:
+        f.writelines("%s,%s\n" % (str(item['id']), str(item['count'])))
+
+    f.close()
+
+
 def main_func():
+    list_all_link = get_all_url()
+
+    loop = asyncio.get_event_loop()
+
+    for stt in range(0, len(list_all_link), 1000):
+        loop = asyncio.new_event_loop()
+        data = loop.run_until_complete(async_request_aio_http(list_all_link[stt:stt + 1000]))
+        loop.close()
+
+        data_handle = handle_data(data)
+        list_price = data_handle[0]
+
+        arr_list_price_item = data_handle[1]
+        arr_list_data_with_product_id = sort_list_item_with_product_id(list_price)
+
+        print(len(list_price))
+
+        for stt_item_error in range(0, len(list_price), 1000):
+            loop = asyncio.new_event_loop()
+
+            data_check_price_error = loop.run_until_complete(async_request_aio_http(list_price[stt_item_error: stt_item_error + 1000]))
+            print(len(data_check_price_error))
+            loop.close()
+
+            for item in data_check_price_error:
+                handle_data_check_error_price(item, arr_list_price_item, arr_list_data_with_product_id)
+        time.sleep(5)
+
+    asyncio.get_event_loop().stop()
+    return
+
+def get_list_sub_cat():
     category = get_category_id()
     list_cat_id = get_list_cat_id(category)
-    list_total_page = get_list_total_page(list_cat_id)
-    list_all_link = get_all_url(list_cat_id, list_total_page)
-
-    data = loop.run_until_complete(async_request_aio_http(list_all_link[:1000]))
-    time.sleep(1)
-
-    data_handle = handle_data(data)
-    list_price = data_handle[0]
-    arr_list_price_item = data_handle[1]
-
-    data_check_price_error = loop.run_until_complete(async_request_aio_http(list_price[:1000]))
-
-    print(data_check_price_error[0])
-
-    return
-    # for item in category:
-    #     handle(item)
-
-    arr_handle = list(range(10))
-
-    loop.run_until_complete(async_request_aio_http(arr_handle))
+    l = get_all_urls(list_cat_id)
+    result = []
+    print("--------")
+    print(len(l))
+    for item in l:
+        if item not in result:
+            result.append(item)
+    print(len(result))
+    write_file('list-category-tiki.txt', result)
 
 
 if __name__ == '__main__':
     ts = time.time()
     main_func()
     logging.info('Took %s', time.time() - ts)
-    # while True:
-    #     first_time = datetime.datetime.now()
-    #     category = get_category_id()
-    #     ts = time.time()
-    #
-    #     for item in category:
-    #         handle(item)
-    #
-    #     logging.info('Took %s', time.time() - ts)
     #
     #     time.sleep(500)
